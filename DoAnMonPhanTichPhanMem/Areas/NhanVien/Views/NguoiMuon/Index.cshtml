@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/NhanVien/Views/Share/LayoutNhanVien.cshtml";
+}
+
+@model X.PagedList.IPagedList<DoAnMonPhanTichPhanMem.Areas.GiamDoc.Models.NguoiMuon>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common;
+@{
+    var options = new PagedListRenderOptions()
+            {
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" },
+                UlElementClasses = new string[] { "pagination justify-content-center" }
+            };
+}
+<style>
+    .custom-bg-color {
+        background-color: rgb(173,216,230);
+    }
+
+    .add-button {
+        width: 110px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+
+    th {
+        background-color: #39444e;
+        color: white;
+    }
+    .custom-table {
+        color: #ffffff;
+    }
+
+    .cuns-container {
+        border: 1px solid #ccc;
+        padding: 11px;
+        border-radius: 12px;
+        background-color: snow;
+    }
+</style>
+<div>
+    <div class="row">
+        <div class="col-sm-12 p-0">
+            <div class="main-header">
+                <h4>Người Mượn</h4>
+                <ol class="breadcrumb breadcrumb-title breadcrumb-arrow">
+                    <li class="breadcrumb-item">
+                        <a href="../DonMuon/Index"><i class="icofont icofont-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="../NguoiMuon/Index">Người Mượn</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="cuns-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-right mb-3" style="display: flex; justify-content: flex-end; align-items: flex-start;">
+                    <form asp-action="DeleteAll" method="post" class="d-inline" style="margin-bottom: 10px;">
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-broom"></i> Xóa Tất Cả</button>
+                    </form>
+                    <a asp-action="Create" class="btn btn-primary add-button" style="margin-left: 10px;"><i class="fas fa-plus"></i></a>
+                </div>
+                <div class="Bangove">
+                    <table class="table table-striped table-hover ">
+                        <thead class="">
+                            <tr class="custom-table">
+                                @* <th class="text-center">Mã Nhà Cung Cấp</th>*@
+                                <th class="text-center">Tên Người Mượn</th>
+                                <th class="text-center">Số Điện Thoại</th>
+                                <th class="text-center">Ngày Đăng Ký</th>
+                                <th class="text-center">Địa Chỉ</th>
+                                <th class="text-center">Tác Dụng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                @foreach (DoAnMonPhanTichPhanMem.Areas.GiamDoc.Models.NguoiMuon NM in Model)
+                                {
+                                    <tr>
+                                        <td class="text-center">@NM.hoVaTen</td>
+                                        <td class="text-center">@NM.soDienThoai</td>
+                                        <td class="text-center">@NM.ngayDangKy</td>
+                                        <td class="text-center">@NM.diaChi</td>
+                                        <td class="text-center" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                                            <a asp-action="Update" asp-controller="NguoiMuon" asp-route-id="@NM.maNguoiMuon" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                            <form asp-action="Delete" asp-route-id="@NM.maNguoiMuon">
+                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt" style="color: pink;"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", "NguoiMuon", new { page = page }), options)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

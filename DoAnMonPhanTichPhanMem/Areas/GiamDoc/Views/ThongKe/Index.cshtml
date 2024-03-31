@@ -1,0 +1,244 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/GiamDoc/Views/Share/_LayoutAdmin.cshtml";
+}
+
+<style>
+    table td {
+        padding: 3px;
+    }
+
+    #canvas_container {
+        width: 700px;
+    }
+
+    th {
+        background-color: #39444e;
+        color: white;
+    }
+
+</style>
+<div class="row">
+    <div class="main-header">
+        <h4>Thống Kê</h4>
+    </div>
+</div>
+<!-- 4-blocks row start -->
+<div class="col-lg-3 col-md-6">
+    <div class="card dashboard-product">
+        <span>Tổng số lượng thiết bị</span>
+        <h2 class="dashboard-total-products">@ViewBag.SoLuongThietBi</h2>
+        <span class="label label-warning">Thiết bị có sẵn</span>Thiết bị có sẵn
+        <div class="side-box">
+            <i class="ti-settings text-warning-color"></i>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-md-6">
+    <div class=" card dashboard-product">
+        <span>Tổng số lượng tài sản</span>
+        <h2 class="dashboard-total-products">@ViewBag.SoLuonMuon</h2>
+        <span class="label label-primary">Thiết bị đang mượn</span>Thiết bị đang mượn
+        <div class="side-box ">
+            <i class="ti-stats-up text-primary-color"></i>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-md-6">
+    <div class="card dashboard-product">
+        <span>Tổng số lượng thiết bị hỏng</span>
+        <h2 class="dashboard-total-products">@ViewBag.Hong</h2>
+        <span class="label label-danger">Thiết bị hỏng</span>Thiết bị hỏng
+        <div class="side-box">
+            <i class="ti-alert text-danger-color"></i>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-md-6">
+    <div class="card dashboard-product">
+        <span>Tổng thiết bị đã qua sử dụng</span>
+        <h2 class="dashboard-total-products">@ViewBag.SoLuongTra</h2>
+        <span class="label label-success">Thiết bị đã qua sử dụng</span>Thiết bị đã qua sử dụng
+        <div class="side-box">
+            <i class="ti-panel text-success-color"></i>
+        </div>
+    </div>
+</div>
+
+<!-- 4-blocks row end -->
+<!-- 1-3-block row start -->
+ <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-header-text">Biểu đồ Tình trạng thiết bị và tài sản</h5>
+                </div>
+                <div class="chart">
+                    <canvas id="barchart" style="min-width: 250px; height: 330px; margin: 0 auto"></canvas>
+                </div>
+            </div>
+        </div>
+ </div>
+
+<!-- 1-3-block row end -->
+
+<!-- 2-1 block start -->
+<div class="row">
+    <div class=" col-lg-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="table-responsive">
+                    <table class="table m-b-0">
+                        <thead>
+                            <tr class="text-uppercase">
+                                <th>Tình trạng</th>
+                                <th>Số lượng</th>
+                                <th>Chi tiết</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Tổng số lượng
+                                </td>
+                                <td>
+                                    @ViewBag.SoLuongThietBi
+                                </td>
+                                <td>
+                                    <span class="pie" style="display: none;">@ViewBag.SoLuongThietBi</span>
+                                    <svg class="peity" height="30" width="30">
+                                        <path d="M 15.000000000000002 0 A 15 15 0 1 1 4.209902994920235 25.41987555688496 L 15 15" fill="#2196F3"></path>
+                                        <path d="M 4.209902994920235 25.41987555688496 A 15 15 0 0 1 14.999999999999996 0 L 15 15" fill="#ccc"></path>
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Số lượng đang mượn
+                                </td>
+                                <td>
+                                    @ViewBag.SoLuonMuon
+                                </td>
+                                <td>
+                                    <span class="pie" style="display: none;">@ViewBag.SoLuonMuon</span>
+                                    <svg class="peity" height="30" width="30">
+                                        <path d="M 15.000000000000002 0 A 15 15 0 0 1 28.00043211809656 22.482564048691025 L 15 15" fill="#2196F3"></path>
+                                        <path d="M 28.00043211809656 22.482564048691025 A 15 15 0 1 1 14.999999999999996 0 L 15 15" fill="#ccc"></path>
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Số lượng hỏng
+                                </td>
+                                <td>
+                                    @ViewBag.Hong
+                                </td>
+                                <td>
+                                    <span class="pie" style="display: none;">@ViewBag.Hong</span>
+                                    <svg class="peity" height="30" width="30">
+                                        <path d="M 15.000000000000002 0 A 15 15 0 0 1 29.265847744427305 10.36474508437579 L 15 15" fill="#2196F3"></path>
+                                        <path d="M 29.265847744427305 10.36474508437579 A 15 15 0 1 1 14.999999999999996 0 L 15 15" fill="#ccc"></path>
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Số lượng đã qua sử dụng
+                                </td>
+                                <td>
+                                    @ViewBag.SoLuongTra
+                                </td>
+                                <td>
+                                    <span class="pie" style="display: none;">@ViewBag.SoLuongTra</span>
+                                    <svg class="peity" height="30" width="30">
+                                        <path d="M 15.000000000000002 0 A 15 15 0 0 1 28.00043211809656 22.482564048691025 L 15 15" fill="#2196F3"></path>
+                                        <path d="M 28.00043211809656 22.482564048691025 A 15 15 0 1 1 14.999999999999996 0 L 15 15" fill="#ccc"></path>
+                                    </svg>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  @*  <div class="col-xl-4 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-header-text">Bar chart</h5>
+            </div>
+            <div class="card-block">
+                <div id="piechart" style="min-width: 250px; height: 460px; margin: 0 auto"></div>
+            </div>
+        </div>
+    </div>*@
+</div>
+<!-- 2-1 block end -->
+<script 
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+30JU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+<script src="~/Admin/cssThongBao/ThongBao.js"></script>
+<script>
+    var barCanvas = document.getElementById("barchart");
+
+    var TongSoLuongThietBi = {
+        label: 'Tổng Số Lượng Thiết Bị',
+        data: [@ViewBag.SoLuongThietBi],
+        backgroundColor: 'orange',
+        broderWidth: 0,
+        lineTension: 0,
+    };
+
+    var TongSoLuongTaiSan = {
+        label: 'Tổng Số Lượng Tài Sản',
+        data: [@ViewBag.SoLuonMuon],
+        backgroundColor: '#2196F3',
+        broderWidth: 0,
+    };
+
+     var TongSoLuongThietBiHong = {
+        label: 'Tổng Số Lượng Thiết Bị Hỏng',
+        data: [@ViewBag.Hong],
+        backgroundColor: '#ff5252',
+        broderWidth: 0,
+    };
+
+    var TongThietBiDaQuaSuDung = {
+        label: 'Tổng Thiết Bị Đã Qua Sử Dụng',
+        data: [@ViewBag.SoLuongTra],
+        backgroundColor: '#4CAF50',
+        broderWidth: 0,
+    };
+
+    var datasetvalues = {
+        labels: ["Tháng 11","Tháng 12","Tháng 1","Tháng 2","Tháng 3"],
+        datasets: [TongSoLuongThietBi, TongSoLuongTaiSan, TongSoLuongThietBiHong, TongThietBiDaQuaSuDung],
+    };
+
+    var chartOptions = {
+        scales: {
+            xAxes: [{
+                barPercentage: 1,
+                categoryPercentage: 0.6,
+            }],
+            yAxes: [{
+                barPercentage: 1,
+                categoryPercentage: 0.6,
+                ticks: {
+                    beginAtZero: true
+                }
+            }],
+        }
+    }
+
+    var barchart = new Chart(barCanvas,{
+        type: 'bar',
+        data: datasetvalues,
+        options: chartOptions
+    });
+</script>

@@ -1,0 +1,109 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/NhanVien/Views/Share/LayoutNhanVien.cshtml";
+    var userImage = HttpContextAccessor.HttpContext.Session.GetString("userImage");
+    var tenNguoiDung = HttpContextAccessor.HttpContext.Session.GetString("tenNguoiDung");
+    var gioiTinh = HttpContextAccessor.HttpContext.Session.GetString("gioiTinh");
+    var ngaySinh = HttpContextAccessor.HttpContext.Session.GetString("ngaySinh");
+    var CMND_CCCD = HttpContextAccessor.HttpContext.Session.GetString("CMND_CCCD");
+    var vaiTro = HttpContextAccessor.HttpContext.Session.GetString("vaiTro");
+    var diaChi = HttpContextAccessor.HttpContext.Session.GetString("diaChi");
+    var soDienThoai = HttpContextAccessor.HttpContext.Session.GetString("soDienThoai");
+    var email = HttpContextAccessor.HttpContext.Session.GetString("email");
+}
+
+<style>
+    .custom-img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        max-height: 300px; /* Điều chỉnh kích thước tối đa của hình ảnh */
+        margin-bottom: 10px;
+    }
+
+    .custom-personal-info h2 {
+        font-size: 24px; /* Đặt kích thước phông chữ cho tiêu đề */
+    }
+
+    .custom-personal-info p {
+        font-size: 16px; /* Đặt kích thước phông chữ cho các đoạn văn */
+        background-color: transparent; /* Đặt màu nền thành trong suốt */
+    }
+
+    th {
+        background-color: #39444e;
+        color: white;
+    }
+    .custom-container {
+        border: 1px solid #ccc;
+        padding: 11px;
+        border-radius: 12px;
+        background-color: snow;
+    }
+</style>
+<div>
+    <div class="row">
+        <div class="col-sm-12 p-0">
+            <div class="main-header">
+                <h4>Thông Tin Nhân Viên</h4>
+                <ol class="breadcrumb breadcrumb-title breadcrumb-arrow">
+                    <li class="breadcrumb-item">
+                        <a href="../UsersNV/Index"><i class="icofont icofont-home"></i></a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="custom-container">
+        <div class="row">
+            <div class="col-md-4">
+                <!-- Phần bên trái để hiển thị hình thẻ -->
+                <div class="custom-card">
+                    <img src="~/Admin/Upload/@userImage" alt="Hình thẻ" class="custom-img">
+                </div>
+            </div>
+            <div class="col-md-8">
+                <!-- Phần bên phải để hiển thị thông tin cá nhân -->
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Họ và tên</th>
+                            <td>@tenNguoiDung</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Ngày sinh</th>
+                            <td>@ngaySinh</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Giới Tính</th>
+                            <td>@gioiTinh</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CCCD-CMND</th>
+                            <td>@CMND_CCCD</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Số Điện Thoại</th>
+                            <td>@soDienThoai</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Chức Vụ</th>
+                            <td>@vaiTro</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Địa chỉ</th>
+                            <td>@Html.Raw(diaChi)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td>@email</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

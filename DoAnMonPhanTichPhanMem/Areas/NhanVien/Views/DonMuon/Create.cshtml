@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/NhanVien/Views/Share/LayoutNhanVien.cshtml";
+}
+
+@model DoAnMonPhanTichPhanMem.Areas.GiamDoc.Models.DonMuon
+
+<div>
+    <div class="row">
+        <div class="col-sm-12 p-0">
+            <div class="main-header">
+                <h4>Đơn Mượn</h4>
+                <ol class="breadcrumb breadcrumb-title breadcrumb-arrow">
+                    <li class="breadcrumb-item">
+                        <a href="../DuyetDon/Index"><i class="icofont icofont-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="../DonMuon/Index">Đơn Mượn</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="../DonMuon/Create">Form Lập Đơn</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+   <div class="col-md-12">
+        <div class="table-wrapper">
+            <form method="post" id="createForm">
+                <div>
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label asp-for="hoVaTen">Họ và Tên Người Mượn:</label>
+                                    <select asp-for="maNguoiMuon" type="text" asp-items="ViewBag.NguoiMuon" class="form-control"></select>
+                                </div>
+                                 <div class="col-md-6">
+                                    <label asp-for="soDienThoai">Số Điện Thoại:</label>
+                                    <select asp-for="maNguoiMuon" type="text" asp-items="ViewBag.SoDienThoaiNguoiMuon" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="chiTietDonMuon">Tên Thiết Bị Muốn Mượn:</label>
+                                <select name="maThietBi" type="text" asp-items="ViewBag.ThongTinCoSoVatChat" class="form-control"></select>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ngayMuon">Ngày Mượn:</label>
+                                <input asp-for="ngayMuon" type="date" id="ngayMuon" name="ngayMuon" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="mucDich">Mục Đích:</label>
+                                <input asp-for="mucDich" type="text" id="mucDich" name="mucDich" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="trangThai">Trạng Thái:</label>
+                                <input type="text" name="trangThai" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="soLuongMuon">Số Lượng Mượn:</label>
+                                <input type="number" name="soLuongMuon" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="ngayTraDuKien">Ngày Trả Dự Kiến:</label>
+                                <input type="date"  name="ngayTraDuKien" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="ngayTraThucTe">Ngày Trả Thực Tế:</label>
+                                <input type="date" name="ngayTraThucTe" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="hoVaTen">Họ Và Tên Người Lập Đơn:</label>
+                                <input asp-for="hoVaTen" type="text" id="hoVaTen" name="hoVaTen" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="soDienThoai">Số Điện Thoại:</label>
+                                <input asp-for="soDienThoai" type="text" id="soDienThoai" name="soDienThoai" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="email">Email:</label>
+                                <input asp-for="email" type="text" id="email" name="email" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="users">Người Nhận Đơn:</label>
+                                <select asp-for="maNguoiDung" type="text" asp-items="ViewBag.Users" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" href="../DonMuon/Index" class="btn btn-secondary add-button" data-dismiss="modal" onclick="quayLaiTrang()">Đóng</button>
+                    <button type="submit" form="createForm" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

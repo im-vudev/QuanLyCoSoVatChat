@@ -1,0 +1,20 @@
+﻿
+/* CSS LOGO CHO TRANG  */
+/* CSS cho phần header tùy chỉnh */
+
+
+/* CSS cho phần header tùy chỉnh */
+.custom-logo {
+    display: inline-block;
+    margin-right: -9px;
+    width: 57px;
+    vertical-align: middle;
+}
+
+.custom-logo-text {
+    color: #ffffff; /* Màu chữ trắng */
+    margin-left: 8px;
+    font-size: 11px;
+    font-style: italic; /* Chữ nghiêng */
+    font-weight: bold; /* Chữ in đậm */
+}

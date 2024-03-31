@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/NhanVien/Views/Share/LayoutNhanVien.cshtml";
+}
+
+@model DoAnMonPhanTichPhanMem.Areas.GiamDoc.Models.NguoiMuon
+
+<div>
+    <div class="row">
+        <div class="col-sm-12 p-0">
+            <div class="main-header">
+                <h4>Thông Tin Cơ Sở Vật Chất</h4>
+                <ol class="breadcrumb breadcrumb-title breadcrumb-arrow">
+                    <li class="breadcrumb-item">
+                        <a href="../DonMuon/Index"><i class="icofont icofont-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="../NguoiMuon/Index">Người Mượn</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="../NguoiMuon/Update">Form Sửa Thông Tin Người Mượn</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="table-wrapper">
+            <form method="post" id="createForm">
+                <div>
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label asp-for="hoVaTen">Họ Và Tên</label>
+                                <input asp-for="hoVaTen" type="text" required class="form-control">
+                                <input asp-for="maNguoiMuon" type="hidden" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="soDienThoai">Số Điện Thoại</label>
+                                <input asp-for="soDienThoai" type="text" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="diaChi">Địa Chỉ</label>
+                                <input asp-for="diaChi" type="text" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ngayDangKy">Ngày Đăng Ký</label>
+                                <input asp-for="ngayDangKy" type="date" required class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" href="../NguoiMuon/Index" class="btn btn-secondary add-button" data-dismiss="modal" onclick="quayLaiTrang()">Đóng</button>
+                    <button type="submit" form="createForm" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function quayLaiTrang() {
+        // Chuyển hướng trở lại trang Loại Cơ Sở Vật chất
+        window.location.href = '../NguoiMuon/Index';
+    }
+</script>
+
+

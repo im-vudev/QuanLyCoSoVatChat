@@ -1,0 +1,213 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/NhanVien/Views/Share/LayoutNhanVien.cshtml";
+}
+
+@model X.PagedList.IPagedList<DoAnMonPhanTichPhanMem.Areas.GiamDoc.Models.DonTra>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common;
+@{
+    var options = new PagedListRenderOptions()
+            {
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" },
+                UlElementClasses = new string[] { "pagination justify-content-center" }
+            };
+}
+<style>
+    .custom-bg-color {
+        background-color: rgb(173,216,230);
+    }
+
+    .add-button {
+        width: 110px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+
+    .custom-container {
+            border: 1px solid #ccc;
+            padding: 11px;
+            border-radius: 12px;
+            background-color: snow;
+    }
+    th {
+        background-color: #39444e;
+        color: white;
+    }
+    .custom-table {
+        background-color: #3498db;
+        color: #ffffff;
+    }
+</style>
+<div>
+    <div class="row">
+        <div class="col-sm-12 p-0">
+            <div class="main-header">
+                <h4>Đơn Mượn</h4>
+                <ol class="breadcrumb breadcrumb-title breadcrumb-arrow">
+                    <li class="breadcrumb-item">
+                        <a href="../DuyetDon/Index"><i class="icofont icofont-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="../DonMuon/Index">Đơn Trả</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="custom-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-right mb-3" style="display: flex; justify-content: flex-end; align-items: flex-start;">
+                    <form asp-action="DeleteAll" method="post" class="d-inline" style="margin-bottom: 10px;">
+                        <button type="submit" class="btn btn-danger">Xóa Tất Cả</button>
+                    </form>
+                    <a asp-action="Create" asp-controller="DonTra" asp-area="NhanVien" class="btn btn-primary add-button" style="margin-left: 10px;">Thêm</a>
+                </div>
+                <div class="Bangove">
+                     <table class="table table-striped table-hover ">
+                    <thead class="">
+                        <tr class="custom-table">
+                            <th class="text-center">Tên Người Lập Đơn Trả</th>
+                            <th class="text-center">Số Điện Thoại</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Ngày Trả</th>
+                            <th class="text-center">Trạng Thái</th>
+                            <th class="text-center"></th>
+                            <th class="text-center">Chi Tiết Đơn Đơn Tra</th>
+                            <th class="text-center">Chức Năng</th>
+                            @*  <th class="text-center"></th>
+                            <th class="text-center">Chi Tiết Đơn Mượn</th>*@
+                        <tr />
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            @foreach (DoAnMonPhanTichPhanMem.Areas.GiamDoc.Models.DonTra DT in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">@DT.hoVaTen</td>
+                                    <td class="text-center">@DT.soDienThoai</td>
+                                    <td class="text-center">@DT.email</td>
+                                    <td class="text-center">@DT.ngayTra.ToString("dd-MM-yyyy")</td>
+                                    <td class="text-center">@DT.trangThai</td>
+                                    <td>
+                                        @foreach (var chiTietDonTra in DT.chiTietDonTra)
+                                        {
+                                            <td class="text-center">
+                                                <button class="btn btn-success" data-toggle="modal" data-target="#motaModal-@chiTietDonTra.maChiTietDonTra">
+                                                    xem
+                                                </button>
+                                                <div class="modal fade" id="motaModal-@chiTietDonTra.maChiTietDonTra" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Chi Tiết Đơn Mư</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <table class="table table-bordered">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <th scope="row">Tên Người Trả</th>
+                                                                            <td>@DT.nguoiMuon.hoVaTen</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">Số Điện Thoại</th>
+                                                                            <td>@DT.nguoiMuon.soDienThoai</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">Tên Thiết Bị Đã Mượn</th>
+                                                                            <td>@chiTietDonTra.thongTinCoSoVatChat.tenThietBi</td>
+                                                                        </tr>
+                                                                         <tr>
+                                                                            <th scope="row">Tên Thiết Bị Muốn Trả</th>
+                                                                            <td>@chiTietDonTra.tenThietBi</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">Tên Người lập Đơn</th>
+                                                                            <td>@chiTietDonTra.donTra.hoVaTen</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">Số Điện Thoại</th>
+                                                                            <td>@chiTietDonTra.donTra.soDienThoai</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">Email</th>
+                                                                            <td>@chiTietDonTra.donTra.email</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">Ngày Mượn</th>
+                                                                            <td>@chiTietDonTra.donTra.ngayTra</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">Trạng Thái</th>
+                                                                            <td>@chiTietDonTra.donTra.trangThai</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">Số Lượng Trả</th>
+                                                                            <td>@chiTietDonTra.soLuongTra</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">Mô Tả</th>
+                                                                            <td>@chiTietDonTra.moTa</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        }
+                                    </td>
+                                        <td class="text-center" style="color: @(DT.chucNang == "Đợi Duyệt" ? "orange" : "green")">
+                                            @DT.chucNang
+                                        </td>
+                                  @*  <td class="text-center" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                                        <form asp-action="Delete" asp-route-id="@DT.maDonTra">
+                                            <button type="submit" class="btn btn-danger">Xóa</button>
+                                        </form>
+                                    </td>*@
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                </div>
+                <div class="">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", "DonTra", new { page = page }), options)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script>
+    $(document).ready(function () {
+        $('#soanDonForm').submit(function (e) {
+            e.preventDefault();
+
+            var hoTen = $('#hoTen').val();
+            var soDienThoai = $('#soDienThoai').val();
+            var eMail = $('#eMail').val();
+            var maThietBi = $('#maThietBi').val();
+            var tenThietBi = $('#tenThietBi').val();
+            var soLuongMuon = $('#soLuongMuon').val();
+            var mucDichMuon = $('#mucDichMuon').val();
+            var ngayMuon = $('#ngayMuon').val();
+            var ngayTraDuKien = $('#ngayTraDuKien').val();
+
+
+            $('#soanDonModal').modal('hide');
+        });
+    });
+</script>*@
+

@@ -1,0 +1,268 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/QuanLy/Views/Share/_LayoutQuanLy.cshtml";
+}
+
+@model X.PagedList.IPagedList<DoAnMonPhanTichPhanMem.Areas.GiamDoc.Models.DonMuon>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common;
+@{
+    var options = new PagedListRenderOptions()
+            {
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" },
+                UlElementClasses = new string[] { "pagination justify-content-center" }
+            };
+}
+<style>
+    .custom-bg-color {
+        background-color: rgb(173,216,230);
+    }
+
+    .add-button {
+        width: 110px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+
+    th {
+        background-color: #39444e;
+        color: white;
+    }
+    .custom-container {
+        border: 1px solid #ccc;
+        padding: 11px;
+        border-radius: 12px;
+        background-color: snow;
+    }
+
+    .custom-table {
+        background-color: #3498db;
+        color: #ffffff;
+    }
+</style>
+<div>
+    <div class="row">
+        <div class="col-sm-12 p-0">
+            <div class="main-header">
+                <h4>Đơn Mượn</h4>
+                <ol class="breadcrumb breadcrumb-title breadcrumb-arrow">
+                    <li class="breadcrumb-item">
+                        <a href="../DuyetDon/Index"><i class="icofont icofont-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="../DuyetDon/Index">Duyệt Đơn Mượn</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="custom-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-right mb-3" style="display: flex; justify-content: flex-end; align-items: flex-start;">
+                    <form asp-action="DeleteAll" method="post" class="d-inline" style="margin-bottom: 10px;">
+                        <button type="submit" class="btn btn-danger">Xóa Tất Cả</button>
+                    </form>
+                    <a asp-action="Create" asp-controller="DonMuon" class="btn btn-primary add-button" style="margin-left: 10px;">Thêm</a>
+                </div>
+                <div class="Bangove">
+                      <table class="table table-striped table-hover ">
+                    <thead class="">
+                        <tr class="custom-table">
+                            <th class="text-center">Họ và Tên Người Mượn</th>
+                            <th class="text-center">Số Điện Thoại</th>
+                            <th class="text-center">Tên Người Lập Đơn</th>
+                            <th class="text-center">Số Điện Thoại</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Ngày Mượn</th>
+                            <th class="text-center">Mục Đích Mượn</th>
+                            <th class="text-center"></th>
+                            <th class="text-center">Chi Tiết Đơn Mượn</th>
+                            @* <th class="text-center"></th>*@
+                            <th class="text-center">Chức Năng</th>
+                        <tr />
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            @foreach (DoAnMonPhanTichPhanMem.Areas.GiamDoc.Models.DonMuon DM in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">@DM.nguoiMuon.hoVaTen</td>
+                                    <td class="text-center">@DM.nguoiMuon.soDienThoai</td>
+                                    <td class="text-center">@DM.hoVaTen</td>
+                                    <td class="text-center">@DM.soDienThoai</td>
+                                    <td class="text-center">@DM.email</td>
+                                    <td class="text-center">@DM.ngayMuon.ToString("dd-MM-yyyy")</td>
+                                    <td class="text-center">@DM.mucDich</td>
+                                    <td>
+                                        @foreach (var chiTietDonMuon in DM.chiTietDonMuon)
+                                        {
+                                        <td class="text-center">
+                                            <button class="btn btn-success" data-toggle="modal" data-target="#motaModal-@chiTietDonMuon.maChiTietDonMuon">
+                                                xem
+                                            </button>
+                                            <div class="modal fade" id="motaModal-@chiTietDonMuon.maChiTietDonMuon" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Chi Tiết Đơn Mư</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table table-bordered">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th scope="row">Tên Thiết Bị Mượn</th>
+                                                                        <td>@chiTietDonMuon.thongTinCoSoVatChat.tenThietBi</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Tên Người lập Đơn</th>
+                                                                        <td>@chiTietDonMuon.donMuon.hoVaTen</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Số Điện Thoại</th>
+                                                                        <td>@chiTietDonMuon.donMuon.soDienThoai</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Email</th>
+                                                                        <td>@chiTietDonMuon.donMuon.email</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Ngày Mượn</th>
+                                                                        <td>@chiTietDonMuon.donMuon.ngayMuon</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Mục Đích</th>
+                                                                        <td>@chiTietDonMuon.donMuon.mucDich</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Mục Đích</th>
+                                                                        <td>@chiTietDonMuon.trangThai</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Số Lượng Mượn</th>
+                                                                        <td>@chiTietDonMuon.soLuongMuon</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Ngày Dự Kiến Trả</th>
+                                                                        <td>@chiTietDonMuon.ngayTraDuKien</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Ngày Trả Chính Thức</th>
+                                                                        <td>@chiTietDonMuon.ngayTraThucTe</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Họ Và Tên Người Mượn</th>
+                                                                        <td>@DM.nguoiMuon.hoVaTen</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Số Điện Thoại</th>
+                                                                        <td>@DM.nguoiMuon.soDienThoai</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Địa Chỉ</th>
+                                                                        <td>@DM.nguoiMuon.diaChi</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row">Người Nhận Đơn</th>
+                                                                        <td>@DM.users.vaiTro</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        }
+                                    </td>
+                                      <td class="text-center">
+                                            @if (string.Equals(DM.chucNang, "Đã Duyệt", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                <span class="text-success">Đã Duyệt</span>
+                                            }
+                                            else if (string.Equals(DM.chucNang, "Đợi Duyệt", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                <form asp-action="DuyetDon" asp-route-id="@DM.maDonMuon" method="post">
+                                                    <button type="submit" class="btn btn-success">Duyệt</button>
+                                                </form>
+                                            }
+                                      </td>
+                                    @*<td class="text-center" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                            <form asp-action="Delete" asp-route-id="@DM.maDonMuon">
+                            <button type="submit" class="btn btn-danger">Xóa</button>
+                            </form>
+                            </td>*@
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                </div>
+                <div class="">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", "DonMuon", new { page = page }), options)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script>
+    $(document).ready(function () {
+        $('#soanDonForm').submit(function (e) {
+            e.preventDefault();
+
+            var hoTen = $('#hoTen').val();
+            var soDienThoai = $('#soDienThoai').val();
+            var eMail = $('#eMail').val();
+            var maThietBi = $('#maThietBi').val();
+            var tenThietBi = $('#tenThietBi').val();
+            var soLuongMuon = $('#soLuongMuon').val();
+            var mucDichMuon = $('#mucDichMuon').val();
+            var ngayMuon = $('#ngayMuon').val();
+            var ngayTraDuKien = $('#ngayTraDuKien').val();
+
+
+            $('#soanDonModal').modal('hide');
+        });
+    });
+</script>*@
+<script>
+    $(document).ready(function () {
+        // Bắt sự kiện khi submit form
+        $('form').submit(function (e) {
+            e.preventDefault();
+
+            // Lấy thông tin từ form
+            var form = $(this);
+            var actionUrl = form.attr('action');
+            var data = form.serialize();
+
+            // Gửi AJAX request
+            $.post(actionUrl, data, function (response) {
+                // Cập nhật giao diện dựa trên phản hồi từ server
+                if (response && response.chucNang === 'Đã Duyệt') {
+                    // Ẩn nút "Duyệt"
+                    form.find('button').hide();
+
+                    // Hiển thị chữ "Đã Duyệt"
+                    form.parent().append('<span class="text-success">Đã Duyệt</span>');
+
+                    // Hiển thị thông báo hoặc thực hiện các thay đổi khác tùy thuộc vào yêu cầu của bạn
+                    alert('Đã Duyệt thành công!');
+                } else {
+                    // Xử lý lỗi hoặc hiển thị thông báo khác
+                    alert('Không thể Duyệt đơn mượn.');
+                }
+            });
+        });
+    });
+</script>

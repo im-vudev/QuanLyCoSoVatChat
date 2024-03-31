@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/QuanLy/Views/Share/_LayoutQuanLy.cshtml";
+}
+@model X.PagedList.IPagedList<DoAnMonPhanTichPhanMem.Areas.GiamDoc.Models.ChiTietDonMuon>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common;
+@{
+    var options = new PagedListRenderOptions()
+            {
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" },
+                UlElementClasses = new string[] { "pagination justify-content-center" }
+            };
+}
+<style>
+    .custom-bg-color {
+        background-color: rgb(173,216,230);
+    }
+    .add-button {
+        width: 110px;
+        margin-bottom: 10px;
+    }
+    .custom-table {
+        background-color: #3498db;
+        color: #ffffff;
+    }
+
+    th {
+        background-color: #39444e;
+        color: white;
+    }
+</style>
+<div>
+    <div class="row">
+        <div class="col-sm-12 p-0">
+            <div class="main-header">
+                <h4>Danh Sách Mượn Cơ Sở Vật Chất</h4>
+                <ol class="breadcrumb breadcrumb-title breadcrumb-arrow">
+                    <li class="breadcrumb-item">
+                        <a href="../DuyetDon/Index"><i class="icofont icofont-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="../CSVCDonMuon/Index">Danh Sách Mượn Cơ Sở Vật Chất</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="Bangove">
+                <table class="table table-striped table-hover ">
+                    <thead class="">
+                        <tr class="custom-table">
+                            <th class="text-center">ID</th>
+                            <th class="text-center">Tên Thiết Bị</th>
+                            <th class="text-center">Hình Ảnh</th>
+                            <th class="text-center">Số Lượng</th>
+                            <th class="text-center">Trạng Thái</th>
+                            <th class="text-center">Thông Số</th>
+                            <th class="text-center">Người Mượn</th>
+                            <th class="text-center">Chức Năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td class="text-center">Máy Tính Bàn</td>
+                            <td class="text-center">Hình ảnh</td>
+                            <td class="text-center">4</td>
+                            <td class="text-center">Đang Mượn</td>
+                            <td class="text-center">
+                                <button class="btn btn-success" data-toggle="modal" data-target="#thongSoModal">
+                                    Xem Chi Tiết
+                                </button>
+                                <div class="modal fade" id="thongSoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Thông Số Kỷ Thuật</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="Bangove">
+                                                    <table class="table table-bordered">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">CPU</th>
+                                                                <td>Intel Core i3-12100(Up To 4.30 GHz, 4 nhân 8 Luồng, 12MB Cache, socket 1700, Alder Lake)</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">MAIN</th>
+                                                                <td>H610</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">RAM</th>
+                                                                <td>Ram 8GB / 2666Mhz DDR4</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">SSD</th>
+                                                                <td>SSD 256G M2 NVME 2280</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">MANGHINH</th>
+                                                                <td>22inch Viewsonic VA2209-H FHD 75Hz</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">CASE</th>
+                                                                <td>Infinity Sơn Tĩnh Điện</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">NGUON</th>
+                                                                <td>300W</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-success" data-toggle="modal" data-target="#thongSoModall">
+                                    Xem Chi Tiết
+                                </button>
+                                <div class="modal fade" id="thongSoModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Thông Tin Người Mượn</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="Bangove">
+                                                    <table class="table table-bordered">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">Họ Và Tên</th>
+                                                                <td>Nguyễn Minh Thuần</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">Số Điện Thoại</th>
+                                                                <td>0327986785</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">Địa Chỉ</th>
+                                                                <td>P.702A , Centre Point, 106 Nguyễn Văn Trỗi, P.8, Q. Phú Nhuận, TP. HCM</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-danger"><i class="fas fa-trash-alt" style="color: pink;"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="">
+                @Html.PagedListPager(Model, page => Url.Action("Index", "CSVCDangMuon", new { page = page }), options)
+            </div>
+        </div>
+    </div>
+</div>
+

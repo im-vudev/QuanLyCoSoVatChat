@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/QuanLy/Views/Share/_LayoutQuanLy.cshtml";
+}
+@model LoaiCoSoVatChat
+
+<div>
+    <div class="row">
+        <div class="col-sm-12 p-0">
+            <div class="main-header">
+                <h4>Thông Tin Cơ Sở Vật Chất</h4>
+                <ol class="breadcrumb breadcrumb-title breadcrumb-arrow">
+                    <li class="breadcrumb-item">
+                        <a href="../ChuyenDon/Index"><i class="icofont icofont-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="../LoaiCoSoVatChat/Index">loại Cơ Sở Vật Chất</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="../LoaiCoSoVatChat/Update">Sửa Chửa</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="table-wrapper">
+            <form method="post" id="createForm">
+                <div>
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label asp-for="tenLoai">Tên Loại Cơ Sở Vật Chất</label>
+                                <input asp-for="tenLoai" type="text" required class="form-control"/>
+                                <input asp-for="maLoai" type="hidden" required class="form-control"/>
+                            </div>
+                             <div class="form-group">
+                                <label asp-for="moTa">Mô tả</label>
+                                <textarea id="mytextarea" asp-for="moTa"></textarea>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

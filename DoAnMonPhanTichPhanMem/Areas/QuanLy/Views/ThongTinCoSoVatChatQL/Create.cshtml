@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/QuanLy/Views/Share/_LayoutQuanLy.cshtml";
+}
+@model DoAnMonPhanTichPhanMem.Areas.GiamDoc.Models.ThongTinCoSoVatChat
+<style>
+    .add-button {
+        width: 110px;
+    }
+</style>
+<div>
+	<div class="row">
+		<div class="col-sm-12 p-0">
+			<div class="main-header">
+				<h4>Thông Tin Cơ Sở Vật Chất</h4>
+				<ol class="breadcrumb breadcrumb-title breadcrumb-arrow">
+					<li class="breadcrumb-item">
+						<a href="../ChuyenDon/Index"><i class="icofont icofont-home"></i></a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="../ThongTinCoSoVatChatQL/Index">Thông Tin Cơ Sở Vật Chất</a>
+					</li>
+                    <li class="breadcrumb-item">
+                        <a href="../ThongTinCoSoVatChatQL/Create">Form Thêm Cơ Sở Vật Chất</a>
+                    </li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="table-wrapper">
+			<form method="post" asp-action="Create" id="createForm" enctype="multipart/form-data">
+				<div>
+					<div class="modal-content">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label asp-for="tenThietBi">Tên Thiết Bị</label>
+                                <input asp-for="tenThietBi" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="hinhAnh">Hình ảnh</label>
+                                <input asp-for="hinhAnh" type="file" class="form-control" accept=".jpg, .jpeg, .png" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="loaiCoSoVatChat">Tên Loại</label>
+                                <select asp-for="maLoai" type="text" asp-items="ViewBag.LoaiCoSoVatChat" class="form-control"></select>
+                               @* <select asp-for="maLoai" type="hidden" asp-items="ViewBag.loaiCoSoVatChat" class="form-control" required></select>*@
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="nhaCungCap">Tên Nhà Cung Cấp</label>
+                                <select asp-for="maNhaCungCap" type="text" asp-items="ViewBag.NhaCungCap" class="form-control"></select>
+                                @*<select asp-for="maNhaCungCap" type="hidden" asp-items="ViewBag.NhaCungCap" class="form-control" required></select>*@
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="soLuong">Số Lượng</label>
+                                <input asp-for="soLuong" type="number" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="trangThai">Trạng Thái</label>
+                                <select asp-for="trangThai" required>
+                                    <option value="NhapVao">Nhập Vào</option>
+                                    <option value="Được Mượn">Được Mượn</option>
+                                    <option value="Chưa Mượn">Chưa Mượn</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ngayNhap">Ngày Nhập hàng</label>
+                                <input asp-for="ngayNhap" type="date" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="thongSo">Thông Số Kỉ Thuật</label>
+                                <textarea id="mytextarea" asp-for="thongSo"></textarea>
+                            </div>
+                        </div>
+					</div>
+				</div>
+                <div class="modal-footer">
+                    <button type="button" href="../ThongTinCoSoVatChatQL/Index" class="btn btn-secondary add-button" data-dismiss="modal" onclick="quayLaiTrang()">Đóng</button>
+                    <button type="submit" class="btn btn-primary add-button" >Lưu</button>
+                </div>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+    function quayLaiTrang() {
+        // Chuyển hướng trở lại trang Thông Tin Cơ Sở Vật Chất
+        window.location.href = '../ThongTinCoSoVatChatQL/Index';
+    }
+</script>
+
+
